@@ -129,6 +129,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
   void initState() {
     super.initState();
 
+    log("NEXT");
     _currentIndex = ValueNotifier<int>(widget.initalPageIndex);
     _pageController = PageController(
         initialPage: _currentIndex.value, viewportFraction: widget.slideViewportFraction);
