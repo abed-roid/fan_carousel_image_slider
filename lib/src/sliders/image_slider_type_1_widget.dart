@@ -123,13 +123,13 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
   _autoPlayeTimerStart() {
     _timer?.cancel();
     _timer = Timer.periodic(widget.autoPlayInterval, (_) => _goNextPage());
+    log("NEXT11");
   }
 
   @override
   void initState() {
     super.initState();
 
-    log("NEXT");
     _currentIndex = ValueNotifier<int>(widget.initalPageIndex);
     _pageController = PageController(
         initialPage: _currentIndex.value, viewportFraction: widget.slideViewportFraction);
