@@ -134,7 +134,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
     _pageController = PageController(
         initialPage: _currentIndex.value, viewportFraction: widget.slideViewportFraction);
 
-    if (widget.autoPlay) _autoPlayeTimerStart();
+    _autoPlayeTimerStart();
   }
 
   _disposeData() {
