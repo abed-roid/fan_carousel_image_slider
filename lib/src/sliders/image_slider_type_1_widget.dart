@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:fan_carousel_image_slider/src/exts/string_extension.dart';
@@ -275,6 +276,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
     if (_currentIndex.value < widget.imagesLink.length - 1) {
       _currentIndex.value++;
       _isAutoAnimate = true;
+      log("NEXT PAGE");
       await _pageController.animateToPage(_currentIndex.value,
           duration: widget.sliderDuration, curve: Curves.easeIn);
     } else {
