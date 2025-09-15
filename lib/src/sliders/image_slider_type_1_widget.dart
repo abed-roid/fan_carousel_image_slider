@@ -155,7 +155,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
           child: ValueListenableBuilder<bool>(
             valueListenable: _isExpandSlide,
             builder: (context, isExpand, child) {
-              if (widget.autoPlay) (isExpand) ? _timer?.cancel() : _autoPlayeTimerStart();
+              if (widget.autoPlay) _autoPlayeTimerStart();
               expandedImage = widget.imagesLink[_currentIndex.value];
               return AnimatedContainer(
                   margin: const EdgeInsets.only(top: 15),
