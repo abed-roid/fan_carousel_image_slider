@@ -44,7 +44,7 @@ class ImageSliderType1Widget extends StatefulWidget {
     required this.displayIndicatorOnSlider,
   });
 
-  final List<String> imagesLink;
+  final List<Widget> imagesLink;
 
   final bool isAssets;
 
@@ -117,7 +117,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
   bool _isAutoAnimate = false;
   Timer? _timer;
 
-  String? expandedImage;
+  Widget? expandedImage;
 
   _autoPlayeTimerStart() {
     _timer?.cancel();
@@ -156,7 +156,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
             valueListenable: _isExpandSlide,
             builder: (context, isExpand, child) {
               if (widget.autoPlay) (isExpand) ? _timer?.cancel() : _autoPlayeTimerStart();
-              expandedImage = (isExpand) ? widget.imagesLink[_currentIndex.value] : null;
+              expandedImage = widget.imagesLink[_currentIndex.value];
               return AnimatedContainer(
                   margin: const EdgeInsets.only(top: 15),
                   duration: widget.sliderDuration,
@@ -168,16 +168,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
                       : (widget.expandImageHeight ?? (MediaQuery.of(context).size.height * 0.8)),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(widget.imageRadius),
-                    image: (expandedImage != null)
-                        ? DecorationImage(
-                            image: (!widget.isAssets)
-                                ? NetworkImage(expandedImage!)
-                                : expandedImage!.isSvgImage
-                                    ? Svg(expandedImage!)
-                                    : AssetImage(expandedImage!) as ImageProvider,
-                            fit: widget.expandedImageFitMode,
-                          )
-                        : null,
+                    image: null,
                   ),
                   child: Visibility(visible: isExpand, child: child!));
             },
@@ -237,22 +228,6 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
                         currentItemShadow: widget.currentItemShadow,
                         sideItemsShadow: widget.sideItemsShadow,
                         onSlideClick: () {
-                          if (widget.isClickable && index == actualIndex) {
-                            if (widget.expandFitAndZoomable) {
-                              showImageViewer(
-                                  context,
-                                  widget.isAssets
-                                      ? (widget.imagesLink[index].isSvgImage
-                                          ? Svg(widget.imagesLink[index])
-                                          : Image.asset(widget.imagesLink[index]).image)
-                                      : Image.network(widget.imagesLink[index]).image,
-                                  onViewerDismissed: () {
-                                _isExpandSlide.value = false;
-                              });
-                            } else {
-                              _isExpandSlide.value = true;
-                            }
-                          }
                         },
                       );
                     },

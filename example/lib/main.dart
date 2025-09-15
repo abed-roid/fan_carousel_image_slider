@@ -42,29 +42,12 @@ class HomePage extends StatelessWidget {
               'FanCarouselImageSlider Type1:',
               style: TextStyle(fontSize: 20),
             ),
-            FanCarouselImageSlider.sliderType1(
-              imagesLink: sampleImages,
-              isAssets: false,
-              autoPlay: false,
-              sliderHeight: 400,
-              showIndicator: true,
-            ),
             const SizedBox(
               height: 30,
             ),
             const Text(
               'FanCarouselImageSlider Type2:',
               style: TextStyle(fontSize: 20),
-            ),
-            FanCarouselImageSlider.sliderType2(
-              imagesLink: sampleImages,
-              isAssets: false,
-              autoPlay: false,
-              sliderHeight: 300,
-              currentItemShadow: const [],
-              sliderDuration: const Duration(milliseconds: 200),
-              imageRadius: 0,
-              slideViewportFraction: 1.2,
             ),
             const SizedBox(
               height: 50,

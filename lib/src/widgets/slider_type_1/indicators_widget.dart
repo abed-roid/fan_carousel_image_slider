@@ -14,7 +14,7 @@ class IndicatorsWidget extends StatelessWidget {
   final Duration sliderDuration;
   final Color indicatorActiveColor;
   final Color indicatorDeactiveColor;
-  final List<String> imagesLink;
+  final List<Widget> imagesLink;
 
   @override
   Widget build(BuildContext context) {

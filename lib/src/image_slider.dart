@@ -95,7 +95,7 @@ class FanCarouselImageSlider extends StatelessWidget {
 
   /// List of images to be shown in the slider; Accepts two types of link.
   /// For example: `https://...jpg` for online images and `assets/...` for local images.
-  final List<String> imagesLink;
+  final List<Widget> imagesLink;
 
   /// Specifies the type of image addresses in [imagesLink].
   /// Must be `false` if [imagesLink] contains online images.

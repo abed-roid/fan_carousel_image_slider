@@ -37,7 +37,7 @@ class ImageSliderType2Widget extends StatefulWidget {
     required this.expandFitAndZoomable,
   });
 
-  final List<String> imagesLink;
+  final List<Widget> imagesLink;
 
   final bool isAssets;
 
@@ -141,7 +141,7 @@ class _ImageSliderType2State extends State<ImageSliderType2Widget> {
             valueListenable: _isExpandSlide,
             builder: (context, isExpand, child) {
               if (widget.autoPlay) (isExpand) ? _timer?.cancel() : _autoPlayeTimerStart();
-              expandedImage = (isExpand) ? widget.imagesLink[_currentIndex.value] : null;
+              expandedImage = null;
               return AnimatedContainer(
                   margin: const EdgeInsets.only(top: 15),
                   duration: widget.sliderDuration,
@@ -222,20 +222,7 @@ class _ImageSliderType2State extends State<ImageSliderType2Widget> {
                         sideItemsShadow: widget.sideItemsShadow,
                         onSlideClick: () {
                           if (widget.isClickable && index == actualIndex) {
-                            if (widget.expandFitAndZoomable) {
-                              showImageViewer(
-                                  context,
-                                  widget.isAssets
-                                      ? (widget.imagesLink[index].isSvgImage
-                                          ? Svg(widget.imagesLink[index])
-                                          : Image.asset(widget.imagesLink[index]).image)
-                                      : Image.network(widget.imagesLink[index]).image,
-                                  onViewerDismissed: () {
-                                _isExpandSlide.value = false;
-                              });
-                            } else {
                               _isExpandSlide.value = true;
-                            }
                           }
                         },
                       );
@@ -258,21 +245,13 @@ class _ImageSliderType2State extends State<ImageSliderType2Widget> {
                               child: AnimatedContainer(
                                 duration: widget.sliderDuration,
                                 width: entire.key != value ? 40 : 50,
-                                height: 45,
+                                height: 45,child: entire.value,
                                 margin: const EdgeInsets.symmetric(horizontal: 5),
                                 decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                                   border: entire.key != value
                                       ? null
-                                      : Border.all(color: widget.indicatorActiveColor, width: 2),
-                                  image: DecorationImage(
-                                    image: (!widget.isAssets)
-                                        ? NetworkImage(entire.value)
-                                        : entire.value.isSvgImage
-                                            ? Svg(entire.value)
-                                            : AssetImage(entire.value) as ImageProvider,
-                                    fit: widget.imageFitMode,
-                                  ),
+                                      : Border.all(color: widget.indicatorActiveColor, width: 2)
                                 ),
                               ),
                             ))

@@ -27,7 +27,7 @@ class SlideWidget extends StatelessWidget {
   final int actualIndex;
   final Duration sliderDuration;
   final bool isAssets;
-  final String imageLink;
+  final Widget imageLink;
   final BoxFit imageFitMode;
   final double imageRadius;
   final double sidesOpacity;
@@ -54,17 +54,9 @@ class SlideWidget extends StatelessWidget {
           opacity: (index == actualIndex) ? 1 : sidesOpacity,
           child: InkWell(
             onTap: () => onSlideClick(),
-            child: Container(
+            child: Container(child: imageLink,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(imageRadius),
-                image: DecorationImage(
-                  image: (!isAssets)
-                      ? NetworkImage(imageLink)
-                      : imageLink.isSvgImage
-                          ? Svg(imageLink)
-                          : AssetImage(imageLink) as ImageProvider,
-                  fit: imageFitMode,
-                ),
               ),
             ),
           ),
