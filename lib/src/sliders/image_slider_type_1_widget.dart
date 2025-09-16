@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:fan_carousel_image_slider/src/exts/string_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 import '../widgets/slider_type_1/arrow_navs.dart';
@@ -123,7 +124,6 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
   _autoPlayeTimerStart() {
     _timer?.cancel();
     _timer = Timer.periodic(widget.autoPlayInterval, (_) => _goNextPage());
-    log("NEXT11");
   }
 
   @override
@@ -206,7 +206,18 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
                 builder: (context, actualIndex, child) => SizedBox(
                   width: widget.sliderWidth,
                   height: widget.sliderHeight,
-                  child: PageView.builder(
+                  child: NotificationListener<ScrollNotification>(
+                      onNotification: (notification) {
+                        if (notification is UserScrollNotification) {
+                          if (notification.direction != ScrollDirection.idle) {
+                            print("👉 User is dragging PageView");
+                          } else {
+                            print("👉 Dragging ended");
+                          }
+                        }
+                        return false; // don’t stop the notification from bubbling
+                      },
+                      child: PageView.builder(
                     physics: (widget.userCanDrag)
                         ? const BouncingScrollPhysics()
                         : const NeverScrollableScrollPhysics(),
@@ -232,7 +243,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
                         },
                       );
                     },
-                  ),
+                  )),
                 ),
               ),
               const SizedBox(height: 10),
