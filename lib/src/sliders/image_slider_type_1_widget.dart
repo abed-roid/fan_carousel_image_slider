@@ -210,9 +210,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
                       onNotification: (notification) {
                         if (notification is UserScrollNotification) {
                           if (notification.direction != ScrollDirection.idle) {
-                            print("👉 User is dragging PageView");
-                          } else {
-                            print("👉 Dragging ended");
+                            _timer?.cancel();
                           }
                         }
                         return false; // don’t stop the notification from bubbling
