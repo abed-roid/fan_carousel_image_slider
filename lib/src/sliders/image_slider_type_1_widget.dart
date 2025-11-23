@@ -12,7 +12,7 @@ import '../widgets/slider_type_1/indicators_widget.dart';
 import '../widgets/slider_type_1/slide_widget.dart';
 
 class ImageSliderType1Widget extends StatefulWidget {
-  const ImageSliderType1Widget({
+  ImageSliderType1Widget({
     super.key,
     required this.imagesLink,
     required this.isAssets,
@@ -44,8 +44,10 @@ class ImageSliderType1Widget extends StatefulWidget {
     required this.expandedCloseBtnDecoration,
     required this.expandFitAndZoomable,
     required this.displayIndicatorOnSlider,
+    this.pageController,
   });
 
+  PageController? pageController;
   final List<Widget> imagesLink;
 
   final bool isAssets;
@@ -111,7 +113,6 @@ class ImageSliderType1Widget extends StatefulWidget {
 }
 
 class _ImageSliderType1State extends State<ImageSliderType1Widget> {
-  late PageController _pageController;
   late ValueNotifier<int> _currentIndex;
 
   final ValueNotifier<bool> _isExpandSlide = ValueNotifier<bool>(false);
@@ -131,7 +132,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
     super.initState();
 
     _currentIndex = ValueNotifier<int>(widget.initalPageIndex);
-    _pageController = PageController(
+    widget.pageController ??= PageController(
         initialPage: _currentIndex.value, viewportFraction: widget.slideViewportFraction);
 
     _autoPlayeTimerStart();
@@ -219,7 +220,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
                     physics: (widget.userCanDrag)
                         ? const BouncingScrollPhysics()
                         : const NeverScrollableScrollPhysics(),
-                    controller: _pageController,
+                    controller: widget.pageController,
                     onPageChanged: (newIndex) {
                       if (!_isAutoAnimate) (actualIndex < newIndex) ? _goNextPage() : _goPrevPage();
                     },
@@ -244,7 +245,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
                   )),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 32),
               Visibility(
                 visible: widget.showArrowNav,
                 child: ArrawNavs(
@@ -258,11 +259,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
         Positioned(
           right: 0,
           left: 0,
-          bottom: widget.displayIndicatorOnSlider
-              ? (!widget.showArrowNav ? 40 : 90)
-              : !widget.showArrowNav
-                  ? 0
-                  : 50,
+          bottom: 0,
           child: Visibility(
             visible: widget.showIndicator,
             child: ValueListenableBuilder(
@@ -286,12 +283,12 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
       _currentIndex.value++;
       _isAutoAnimate = true;
       log("NEXT PAGE");
-      await _pageController.animateToPage(_currentIndex.value,
+      await widget.pageController!.animateToPage(_currentIndex.value,
           duration: widget.sliderDuration, curve: Curves.easeIn);
     } else {
       _currentIndex.value = 0;
       _isAutoAnimate = true;
-      await _pageController.animateToPage(_currentIndex.value,
+      await widget.pageController!.animateToPage(_currentIndex.value,
           duration: widget.sliderDuration, curve: Curves.easeIn);
     }
     _isAutoAnimate = false;
@@ -301,7 +298,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
     if (_currentIndex.value > 0) {
       _currentIndex.value--;
       _isAutoAnimate = true;
-      await _pageController.animateToPage(_currentIndex.value,
+      await widget.pageController!.animateToPage(_currentIndex.value,
           duration: widget.sliderDuration, curve: Curves.easeOut);
     }
     _isAutoAnimate = false;

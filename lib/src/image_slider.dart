@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'sliders/image_slider_type_2_widget.dart';
 
 class FanCarouselImageSlider extends StatelessWidget {
-  const FanCarouselImageSlider.sliderType1({
+   FanCarouselImageSlider.sliderType1({
     super.key,
     required this.imagesLink,
     required this.isAssets,
@@ -45,11 +45,12 @@ class FanCarouselImageSlider extends StatelessWidget {
     this.expandedCloseBtnDecoration,
     this.expandFitAndZoomable = false,
     this.displayIndicatorOnSlider = false,
+    this.pageController,
   })  : assert(imagesLink.length > 0),
         assert(initalPageIndex <= (imagesLink.length - 1) && initalPageIndex >= 0),
         imageSliderType = ImageSliderType.imageSliderType1;
 
-  const FanCarouselImageSlider.sliderType2({
+   FanCarouselImageSlider.sliderType2({
     super.key,
     required this.imagesLink,
     required this.isAssets,
@@ -217,6 +218,7 @@ class FanCarouselImageSlider extends StatelessWidget {
 
   /// Determines where the indicators should display, On the slider or below it
   /// Default to bottom of slider
+  PageController? pageController;
   final bool displayIndicatorOnSlider;
 
   final ImageSliderType imageSliderType;
@@ -254,6 +256,7 @@ class FanCarouselImageSlider extends StatelessWidget {
             expandedCloseBtnDecoration: expandedCloseBtnDecoration,
             expandFitAndZoomable: expandFitAndZoomable,
             displayIndicatorOnSlider: displayIndicatorOnSlider,
+          pageController: pageController,
           ),
         ImageSliderType.imageSliderType2 => ImageSliderType2Widget(
             imagesLink: imagesLink,
