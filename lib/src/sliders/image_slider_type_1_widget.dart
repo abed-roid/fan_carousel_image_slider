@@ -245,7 +245,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
                   )),
                 ),
               ),
-              const SizedBox(height: 32),
+        //      const SizedBox(height: 32),
               Visibility(
                 visible: widget.showArrowNav,
                 child: ArrawNavs(

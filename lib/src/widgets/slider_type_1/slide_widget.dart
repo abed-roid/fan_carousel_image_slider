@@ -43,8 +43,8 @@ class SlideWidget extends StatelessWidget {
       child: AnimatedContainer(
         duration: sliderDuration,
         margin: (index == actualIndex)
-            ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16)
-            : const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
+            ? const EdgeInsets.symmetric(horizontal: 10, vertical: 10)
+            : const EdgeInsets.symmetric(vertical: 60, horizontal: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(imageRadius),
           boxShadow: _getSlideBoxShadow(index, actualIndex),
