@@ -201,6 +201,8 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
             child: child,
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ValueListenableBuilder<int>(
                 valueListenable: _currentIndex,
@@ -259,7 +261,7 @@ class _ImageSliderType1State extends State<ImageSliderType1Widget> {
         Positioned(
           right: 0,
           left: 0,
-          bottom: 0,
+          bottom: 16,
           child: Visibility(
             visible: widget.showIndicator,
             child: ValueListenableBuilder(

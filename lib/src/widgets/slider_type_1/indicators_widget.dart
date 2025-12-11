@@ -31,7 +31,7 @@ class IndicatorsWidget extends StatelessWidget {
               shape: BoxShape.circle,
               color: (entire.key != actualIndex) ? Colors.transparent : indicatorActiveColor,
               border: (entire.key != actualIndex)
-                  ? Border.all(color: indicatorDeactiveColor, width: 1)
+                  ? Border.all(color: indicatorDeactiveColor, width: 1.5)
                   : null,
             ),
           );
